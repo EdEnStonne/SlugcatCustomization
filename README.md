@@ -18,16 +18,16 @@ The SlugcatName is the string that representing the slugcat class name (for exam
 - `onlyLocal` : accepts a bool that'll limit the section to only local player (that are not online Meadow players). Default is false.
 - `onlyNPC` : accepts a bool that'll limit the section to only NPC slugcats. Default is false.
 - `alwaysRenderAsPup` : accepts a bool that'll toggle pup render for this slugcat no matter what. Default is false.
-- `tailRadiusRatio` : accepts a float that'll modify the tail radius ratio compared to vanilla. Default is x1.
-- `tailConnectionRadiusRatio` : accepts a float that'll modify the tail connection radius ratio compared to vanilla. Default is x1.
+- `tailRadiusRatio` : accepts a float that'll modify the tail thickness ratio compared to vanilla. Default is x1.
+- `tailConnectionRadiusRatio` : accepts a float that'll modify the tail lenght ratio compared to vanilla. Default is x1.
 - `tail` : an attribute to modify part of the tail individually. Accepts a list of `TailSegmentAttribute`, which contains multiple `TailAttribute` and their values.
 
 **TailAttribute :**
 - `index` : accept an int between 0 to 3, 0 being at the base of the tail and 3 being at the tip of it. It is mandatory for a `TailSegmentAttribute` to have this `TailAttribute`.
-- `radiusRatio` : accepts a float that'll modify the tail radius ratio of this segment. Default is x1.
-- `radius` : accepts a float that'll modify the tail radius value of this segment. Overrides `radiusRatio`. The default vanilla value depends on the segment and the slugcat (for most slugcats, the default values are [6, 4, 2.5, 1]).
-- `connectionRadiusRatio` : accepts a float that'll modify the tail connection radius ratio of this segment. Default is x1.
-- `connectionRadius` : accepts a float that'll modify the tail connection radius value of this segment. Overrides `connectionRadiusRatio`. The default vanilla value depends on the segment and the slugcat (for most slugcats, the default values are [4, 7, 7, 7]).
+- `radiusRatio` : accepts a float that'll modify the tail thickness ratio of this segment. Default is x1.
+- `radius` : accepts a float that'll modify the tail thickness value of this segment. Overrides `radiusRatio`. The default vanilla value depends on the segment and the slugcat (for most slugcats, the default values are [6, 4, 2.5, 1]).
+- `connectionRadiusRatio` : accepts a float that'll modify the tail lenght ratio of this segment. Default is x1.
+- `connectionRadius` : accepts a float that'll modify the tail lenght value of this segment. Overrides `connectionRadiusRatio`. The default vanilla value depends on the segment and the slugcat (for most slugcats, the default values are [4, 7, 7, 7]).
 
 ### Format
 
