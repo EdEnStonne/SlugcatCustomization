@@ -1,0 +1,26 @@
+{
+    "Survivor" : 
+    {
+        "height" : 19.0,
+        "pupHeight" : 12.0,
+        "onlyLocal" : false,
+        "onlyNPC" : false,
+        "alwaysRenderAsPup" : false,
+        "tail" : [
+            {"index": 0, "radius" : 8.0, "connectionRadius": 1.0}, 
+            {"index": 1, "radiusRatio" : 1.1, "connectionRadiusRatio" : 1.1}, 
+            {"index": 2, "radius" : 2}
+        ]
+    },
+    "Monk" : 
+    {
+        "heightRatio" : 0.8,
+        "pupheightRatio" : 1.0,
+        "tailRadiusRatio" : 0.8,
+        "tailConnectionRadiusRatio" : 0.9
+    },
+    "all" : 
+    {
+        "height" : 17.0
+    }
+}
