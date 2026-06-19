@@ -23,7 +23,7 @@ The SlugcatName is the string that representing the slugcat class name (for exam
 - `tail` : an attribute to modify part of the tail individually. Accepts a list of `TailSegmentAttribute`, which contains multiple `TailAttribute` and their values.
 
 **TailAttribute :**
-- `index` : accept an int between 0 to 3, 0 being at the base of the tail and 3 being at the ip of it. It is mandatory for a `TailSegmentAttribute` to have this `TailAttribute`.
+- `index` : accept an int between 0 to 3, 0 being at the base of the tail and 3 being at the tip of it. It is mandatory for a `TailSegmentAttribute` to have this `TailAttribute`.
 - `radiusRatio` : accepts a float that'll modify the tail radius ratio of this segment. Default is x1.
 - `radius` : accepts a float that'll modify the tail radius value of this segment. Overrides `radiusRatio`. The default vanilla value depends on the segment and the slugcat (for most slugcats, the default values are [6, 4, 2.5, 1]).
 - `connectionRadiusRatio` : accepts a float that'll modify the tail connection radius ratio of this segment. Default is x1.
