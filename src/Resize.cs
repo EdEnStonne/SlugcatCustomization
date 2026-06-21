@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using IL.MoreSlugcats;
+using Mono.Cecil.Cil;
+using MonoMod.Cil;
 using MonoMod.RuntimeDetour;
 using UnityEngine;
 
@@ -106,10 +108,46 @@ public static class SlugcatCustomizationHooks
     internal static void ApplyHooks()
     {
         On.Player.ctor += Player_ctor_LinkCustomization;
-        On.Player.Update += Player_Update_ChangeSize;
+        IL.Player.MovementUpdate += Player_MovementUpdate_ModifyHeight;
         On.PlayerGraphics.ctor += PlayerGraphics_ctor_ChangeTailSize;
         new Hook(typeof(PlayerGraphics).GetProperty(nameof(PlayerGraphics.RenderAsPup)).GetGetMethod(), PlayerGraphics_RenderAsPup_ChangeRender);
         Plugin.Log("ApplyHooks of SlugcatCustomizationHooks ended !");
+    }
+    private static float ChangeHeight(float orig, Player player)
+    {
+        if (SlugcatCustomization.customizationsLink.TryGetValue(player, out var customization))
+        {
+            return orig * ((player.isSlugpup && player.playerState.isPup) 
+                ? customization.SlugPupHeightRatio
+                : customization.SlugHeightRatio);
+        }
+        return orig;
+    }
+    private static void Player_MovementUpdate_ModifyHeight(ILContext il)
+    {
+        Plugin.Log("SlugcatCustomization IL 1 starts");
+        try
+        {
+            Plugin.Log("Trying to hook IL");
+            ILCursor cursor = new(il);
+            if (cursor.TryGotoNext(MoveType.After, 
+                x => x.MatchLdloc(4),
+                x => x.MatchConvR4()))
+            {
+                cursor.Emit(OpCodes.Ldarg_0);
+                cursor.EmitDelegate(ChangeHeight);
+            }
+            else
+            {
+                Plugin.LogError("Couldn't find IL hook :<");
+            }
+            Plugin.Log("IL hook ended");
+        }
+        catch (Exception ex)
+        {
+            Plugin.LogError(ex);
+        }
+        Plugin.Log("SlugcatCustomization IL 1 ends");
     }
     private delegate bool orig_RenderAsPup(PlayerGraphics self);
     private static bool PlayerGraphics_RenderAsPup_ChangeRender(orig_RenderAsPup orig, PlayerGraphics self)
@@ -148,7 +186,6 @@ public static class SlugcatCustomizationHooks
             customization.LogSpecifics();
         }
     }
-
     private static void Player_ctor_LinkCustomization(On.Player.orig_ctor orig, Player self, AbstractCreature abstractCreature, World world)
     {
         orig(self, abstractCreature, world);
@@ -159,18 +196,6 @@ public static class SlugcatCustomizationHooks
             {
                 SlugcatCustomization.customizationsLink.Add(self, SlugcatCustomization.customizations[i]);
             }
-        }
-    }
-
-    private static void Player_Update_ChangeSize(On.Player.orig_Update orig, Player self, bool eu)
-    {
-        orig(self, eu);
-        if (SlugcatCustomization.customizationsLink.TryGetValue(self, out var customization))
-        {
-            self.bodyChunkConnections[0].distance *= 
-                (self.isSlugpup && self.playerState.isPup) 
-                ? customization.SlugPupHeightRatio
-                : customization.SlugHeightRatio;
         }
     }
 }
