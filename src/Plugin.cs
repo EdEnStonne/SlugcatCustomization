@@ -17,7 +17,7 @@ namespace Resize;
 sealed class Plugin : BaseUnityPlugin
 {
     public const string MOD_ID = "qski.resize";
-    public const string MOD_VERSION = "1.0.0";
+    public const string MOD_VERSION = "1.1.0";
     private new static ManualLogSource Logger;
 
     private static bool IsInit = false;
