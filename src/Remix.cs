@@ -56,7 +56,7 @@ public class RSRemix : OptionInterface
 
     public static RSRemix instance = new();
 
-    // Arena items
+    // Debug
     public static Configurable<bool> EnableDebugLogging = instance.config.Bind("EnableDebugLogging", false, 
         new ConfigurableInfo("Enable extensive debug logging. Good to find crash and bugs, at the cost of light performance debuff. Default false.")
     );
